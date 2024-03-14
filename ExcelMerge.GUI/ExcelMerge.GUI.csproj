@@ -265,7 +265,6 @@
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="ap37p-1ra5x-001.ico" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

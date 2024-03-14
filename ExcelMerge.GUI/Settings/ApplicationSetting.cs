@@ -57,7 +57,7 @@ namespace ExcelMerge.GUI.Settings
             set { SetProperty(ref alwaysExpandCellDiff, value); }
         }
 
-        private bool focusFirstDiff;
+        private bool focusFirstDiff = true;
         public bool FocusFirstDiff
         {
             get { return focusFirstDiff; }
