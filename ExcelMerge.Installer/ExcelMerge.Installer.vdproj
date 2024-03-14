@@ -1551,8 +1551,8 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0358D2BBCF61470BB3E2319492F9A880"
             {
-            "SourcePath" = "8:..\\ExcelMerge.GUI\\app.ico"
-            "TargetName" = "8:app.ico"
+            "SourcePath" = "8:..\\ExcelMerge.GUI\\app.png"
+            "TargetName" = "8:app.png"
             "Tag" = "8:"
             "Folder" = "8:_D648CFD0AFD3475D8CEEE8E7B3BCCE6F"
             "Condition" = "8:"

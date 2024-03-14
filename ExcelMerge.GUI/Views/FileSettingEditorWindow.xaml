@@ -13,7 +13,7 @@
         Title="{x:Static props:Resources.Title_FileSettingEditorWindow}"
         Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={vc:PercentageConverter}, ConverterParameter='0.6'}" 
         Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={vc:PercentageConverter}, ConverterParameter='0.4'}"
-        Icon="/ExcelMerge.GUI;component/app.ico"
+        Icon="/ExcelMerge.GUI;component/app.png"
         Name="Window">
 
   <Window.Resources>

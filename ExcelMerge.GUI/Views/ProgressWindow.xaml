@@ -9,7 +9,7 @@
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Icon="/ExcelMerge.GUI;component/app.ico"
+        Icon="/ExcelMerge.GUI;component/app.png"
         Height="120" Width="300">
     <Grid>
         <Grid.RowDefinitions>

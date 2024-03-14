@@ -44,9 +44,35 @@ namespace ExcelMerge.GUI
             if (!args.Any())
                 args.Add(CommandType.Diff.ToString());
 
+            List<string> fixedCommand = new List<string>();
+            
+            try
+            {
+                if (args.Count > 0)
+                {
+                    var commandType = (CommandType)Enum.Parse(typeof(CommandType), args[0], true);
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                if (args.Count == 2)
+                {
+                    fixedCommand.Add($"diff");
+                    fixedCommand.Add($"-s");
+                    fixedCommand.Add($"{args[0]}");
+                    fixedCommand.Add($"-d");
+                    fixedCommand.Add($"{args[1]}");
+                }
+                else
+                {
+                    fixedCommand.AddRange(args);
+                }
+            }
+
             CommandLineOption = new CommandLineOption();
 
-            var command = CreateCommand(args.ToArray());
+            var command = CreateCommand(fixedCommand.ToArray());
             command.ValidateOption();
             command.Execute();
         }
