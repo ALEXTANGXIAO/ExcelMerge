@@ -445,20 +445,37 @@ namespace ExcelMerge.GUI.Views
             var fileSettings = FindFileSettings(isStartup);
             var srcFileSetting = fileSettings.Item1;
             var dstFileSetting = fileSettings.Item2;
-
+            
             SrcSheetCombobox.SelectedIndex = diffConfig.SrcSheetIndex;
             DstSheetCombobox.SelectedIndex = diffConfig.DstSheetIndex;
 
+            ReCheckDiffer:
+            
             var srcSheet = srcWorkbook.Sheets[SrcSheetCombobox.SelectedItem.ToString()];
             var dstSheet = dstWorkbook.Sheets[DstSheetCombobox.SelectedItem.ToString()];
 
             if (srcSheet.Rows.Count > 10000 || dstSheet.Rows.Count > 10000)
+            {
                 MessageBox.Show(Properties.Resources.Msg_WarnSize);
+            }
 
             var diff = ExecuteDiff(srcSheet, dstSheet);
+
+            var summary = diff.CreateSummary();
+            
+            if (isStartup && !summary.HasDiff && srcWorkbook.Sheets.Count > 1 && dstWorkbook.Sheets.Count > 1)
+            {
+                if (SrcSheetCombobox.SelectedIndex < srcWorkbook.Sheets.Count && DstSheetCombobox.SelectedIndex < dstWorkbook.Sheets.Count)
+                {
+                    SrcSheetCombobox.SelectedIndex++;
+                    DstSheetCombobox.SelectedIndex++;
+                    goto ReCheckDiffer;
+                }
+            }
+            
             SrcDataGrid.Model = new DiffGridModel(diff, DiffType.Source);
             DstDataGrid.Model = new DiffGridModel(diff, DiffType.Dest);
-
+            
             args = new DiffViewEventArgs<FastGridControl>(SrcDataGrid, container);
             DataGridEventDispatcher.Instance.DispatchFileSettingUpdateEvent(args, srcFileSetting);
 
@@ -468,13 +485,12 @@ namespace ExcelMerge.GUI.Views
             args = new DiffViewEventArgs<FastGridControl>(null, container, TargetType.First);
             DataGridEventDispatcher.Instance.DispatchDisplayFormatChangeEvent(args, ShowOnlyDiffRadioButton.IsChecked.Value);
             DataGridEventDispatcher.Instance.DispatchPostExecuteDiffEvent(args);
-
-            var summary = diff.CreateSummary();
+            
             GetViewModel().UpdateDiffSummary(summary);
-
+            
             if (!App.Instance.KeepFileHistory)
                 App.Instance.UpdateRecentFiles(SrcPathTextBox.Text, DstPathTextBox.Text);
-
+            
             if (App.Instance.Setting.NotifyEqual && !summary.HasDiff)
                 MessageBox.Show(Properties.Resources.Message_NoDiff);
 
